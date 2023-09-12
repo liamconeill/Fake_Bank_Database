@@ -5,8 +5,8 @@ import random
 fake = Faker()
 
 # Define custom lists for branch names
-custom_branch_names = ['TD Headon Forest', 'RBC Headon Forest', 'BMO Milcroft', 'TD Milcroft', ' TD Mountainside',
-                       'BMO Brant Hills', 'Tangerine Milcroft']
+custom_branch_names = ['Headon Forest', 'Palmer', 'Milcroft', 'Orchard', 'Mountainside',
+                       'Brant Hills', 'Tansley']
 
 # Generate fake data for the "branch" table
 def generate_branch_data(num_branches):
@@ -19,7 +19,7 @@ def generate_branch_data(num_branches):
             data.append({
                 'branch_name': branch_name,
                 'branch_city': 'Burlington',
-                'assets': fake.random_int(min=1000000, max=10000000)
+                'assets': fake.random_int(min=1000000, max=50000000)
             })
     return pd.DataFrame(data)
 
@@ -35,13 +35,24 @@ def generate_unique_customer_ids(num_customers):
 def generate_customer_data(num_customers):
     cust_ids = generate_unique_customer_ids(num_customers)
     data = []
-    for cust_id in cust_ids:
+
+    # Determine the number of customers with 'Burlington' as the city
+    num_burlington_customers = int(num_customers * 0.75)
+
+    for i, cust_id in enumerate(cust_ids):
+        # Ensure at least 75% have 'Burlington' as the city
+        if i < num_burlington_customers:
+            city = 'Burlington'
+        else:
+            city = random.choice(custom_city_names)
+
         data.append({
             'cust_ID': cust_id,
             'customer_name': fake.unique.name(),
             'customer_street': fake.street_address(),
-            'customer_city': random.choice(custom_city_names)
+            'customer_city': city
         })
+
     return pd.DataFrame(data)
 
 # Generate random and unique 9-digit loan numbers
@@ -57,7 +68,7 @@ def generate_loan_data(num_loans, branches):
         data.append({
             'loan_number': str(loan_number),
             'branch_name': random.choice(branches['branch_name']),
-            'amount': fake.random_int(min=1000, max=100000)
+            'amount': fake.random_int(min=500, max=500000)
         })
     return pd.DataFrame(data)
 
@@ -90,7 +101,7 @@ def generate_account_data(num_accounts, branches):
         data.append({
             'account_number': account_number,
             'branch_name': random.choice(branches['branch_name']),
-            'balance': fake.random_int(min=10, max=100000)
+            'balance': fake.random_int(min=10, max=1000000)
         })
     return pd.DataFrame(data)
 
