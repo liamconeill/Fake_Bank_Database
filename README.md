@@ -1,4 +1,4 @@
-![database_header.png](attachment:database_header.png)
+![database_header.png](./images/database_header.png)
 
 A relational database for a fictional bank based in my hometown of Burlington, Ontario , Canada. The data was generated using the Python, pandas, and the Faker package. Table creation, data importing, and queries are in postgreSQL.
 
@@ -29,7 +29,7 @@ The project SQL files contain code for table creation, importing the data, and p
 
 Using the related prepared query in the pgAdmin query tool, here's what the output might look like:
 
-![pgadmin_example.png](attachment:pgadmin_example.png)
+![pgadmin_example.png](./images/pgadmin_example.png)
 
 #### Thanks for taking the time to look at my project. If you have any questions you can reach me at:
 - liamcamerononeill@gmail.com
